@@ -1,0 +1,24 @@
+import React from 'react'
+import Greet from './components/Greet'
+import Welcome from './components/Welcome'
+import Hello from './components/Hello'
+import Message from './components/Message'
+import './App.css'
+
+const App = () => {
+  return (
+    <div className='App'>
+      <Greet name="Bruce" heroName="Batman">
+        <p>This is children props</p>
+      </Greet> 
+      <Greet name="Clarke" heroName="Bruce">
+        <button>Action</button>
+       </Greet>
+      <Greet name="Diana" heroName="Wonde Woman"/> 
+      <Welcome name="Bruce" heroName="Batman"/> 
+      <Welcome name="Clarke" heroName="Bruce"/> 
+    </div>
+  )
+}
+
+export default App

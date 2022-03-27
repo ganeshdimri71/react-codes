@@ -1,0 +1,27 @@
+Difference between npx and npm...!
+
+npx create-react-app <project-name>
+npm package runner
+
+npm
+npm instal create-react-app -g
+create-react-app <project_name>
+
+Package.josn
+contains the dependencies and the script required for running the project, 
+
+node_modules
+These folders is generated when we run npm install and contains all the packages that are instaled in our project.
+
+public
+manifest.json()
+favicon.ico
+index.html
+It is the only html file in out project.
+
+src
+The starting point of our project is index.js file where we mention our App component and the DOM element managed by React. 
+App.js
+The App component represent the view that we can represent in our browser.
+When we run npm start the index.html file is render in the browser.
+ 

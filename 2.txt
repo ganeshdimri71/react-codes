@@ -1,0 +1,20 @@
+Component 
+Component can contain other component.
+Component Code is js file and we can also have .jsx extension.
+
+Types of Components
+Stateless Functions
+Stateless Funcions are javascript function that returns a regular html element.
+
+
+Statefull Component
+Class extending Component Class
+Render method returning HTML.
+
+Components Summary
+Components describe a part of the user interface
+They are re-usable and can be nested inside pother components
+
+Two Types-
+Stateless Functional Components
+Stateful Class Components

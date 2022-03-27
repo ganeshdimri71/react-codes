@@ -1,0 +1,70 @@
+Props and state are used to describe what is going to be rendered on the screen.
+props vs state.
+props are immutable because it is passed down to the children by their prent component.
+Functinal Parameter.
+props get passed to the component.
+props are accessed by the props parameter.
+props are accessed as this.props.
+
+State.
+state is managed within the component.
+states are variables declared in the function body.
+State are managed by the component so they can be changed.
+state can be accessed in functional component by useState and as this.state in class components
+
+setState function accepts a object which is nothing but the new state of the component
+state is nothing but the object that is privately maintained inside the component.
+
+Code example where we are changing the state object by clicking the button.
+
+App.js
+import React from 'react'
+import Greet from './components/Greet'
+import Welcome from './components/Welcome'
+import Hello from './components/Hello'
+import Message from './components/Message'
+import './App.css'
+
+const App = () => {
+  return (
+    <div className='App'>
+      <Message />
+    </div>
+  )
+}
+
+export default App
+
+Message.js
+
+import React, { Component } from 'react';
+
+class Message extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            message: 'Welcome Visitor...!'
+        }
+    } 
+    changeMessage() {
+        this.setState({
+            message:'Thank you for subscribing'
+        })
+    }
+    render() {
+
+        return (
+            <div>
+                <h1>
+                     {this.state.message}
+                </h1>
+                <button
+                    onClick={()=>this.changeMessage()}
+                >Subscibe</button>
+            </div>
+        );
+    }
+}
+
+export default Message;
+

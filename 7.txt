@@ -1,0 +1,236 @@
+We should never modify the state directly.We have to initialize the state in the constructor and modify its value in the setState function.
+If we increase the value of the state without the help of the setState function then its value will change but the UI will not be rendered.
+
+Code Example of the state being change in the console but not in the UI.
+
+App.js
+
+import React from 'react'
+import Counter from './components/Counter'
+import './App.css'
+
+const App = () => {
+  return (
+    <div className='App'>
+      <Counter />
+    </div>
+  )
+}
+
+export default App
+
+Counter.js
+
+import React, { Component } from 'react'
+
+class Counter extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            count: 0
+        }
+    }
+    increment = () => {
+        this.state.count = this.state.count + 1
+        console.log(this.state.count)
+    }
+    render() {
+        return (
+            <div>
+                <div>Count {this.state.count}</div>
+                <button onClick={() => { this.increment() }}>Increment</button>
+            </div>
+        )
+    }
+}
+
+export default Counter
+
+the setState function has 2 parameter one is the object and the second one is the callback function, If we want to perform anything that needs the updared value of the state then we can perform that action inside the callback function that is passed as a second parameter to the setState function.
+
+App.js
+import React from 'react'
+import Counter from './components/Counter'
+import './App.css'
+
+const App = () => {
+  return (
+    <div className='App'>
+      <Counter />
+    </div>
+  )
+}
+
+export default App
+
+Counter.js
+import React, { Component } from 'react'
+
+class Counter extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            count: 0
+        }
+    }
+    increment = () => {
+        this.setState({
+            count: this.state.count + 1
+        }, () => {
+            console.log('Count Inside The console: ', this.state.count)
+        })
+        console.log('Count outside of console', this.state.count)
+    }
+    render() {
+        return (
+            <div>
+                <div>Count {this.state.count}</div>
+                <button onClick={() => { this.increment() }}>Increment</button>
+            </div>
+        )
+    }
+}
+
+export default Counter
+
+
+React may group multiple function in which we are changing the value of the state and in such case the new value is not passed over instead the old value is taken.The second parameter to the callback function passed to the setState is the props.
+
+
+Code Example to solve the above issue.
+
+App.js
+It is same as the above
+
+Counter.js
+import React, { Component } from 'react'
+
+class Counter extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            count: 0
+        }
+    }
+    increment = () => {
+        this.setState((prevState) => {
+            return { count: prevState.count + 1 }
+        })
+    }
+
+    incrementFive = () => {
+        this.increment()
+        this.increment()
+        this.increment()
+        this.increment()
+        this.increment()
+    }
+    render() {
+        return (
+            <div>
+                <div>Count {this.state.count}</div>
+                <button onClick={() => { this.incrementFive() }}>Increment</button>
+            </div>
+        )
+    }
+}
+
+export default Counter
+
+setState
+Always make use of setState and never modify the state directly.
+Code has to be executed after the state has been updated? Place that code in a callback function which is the second arguement to the setState method.
+When you have to update the state based on the previous state value, pass in a function as an arguement instead of the regular object.
+
+code example of destructing..!
+
+App.js
+import React from 'react'
+import Counter from './components/Counter'
+import Greet from './components/Greet'
+import './App.css'
+
+const App = () => {
+  return (
+    <div className='App'>
+      <Greet name="Bruce" heroName="Batman" />
+    </div>
+  )
+}
+
+export default App
+
+
+First Example od destructing...!
+Greet.js
+
+import React from 'react'
+
+const Greet = ({ name, heroName }) => {
+    return (
+        <div>Hello {name} a.k.a {heroName}
+        </div>
+    )
+}
+
+
+export default Greet
+
+
+second example of destructing...!
+
+import React from 'react'
+
+const Greet = (props) => {
+
+    const {name,heroName} = props
+    return (
+        <div>Hello {name} a.k.a {heroName}
+        </div>
+    )
+}
+
+
+export default Greet
+
+In class Component the props are destructured in the render method.
+
+App.js
+
+import React from 'react'
+import './App.css'
+import Welcome from './components/Welcome'
+
+const App = () => {
+  return (
+    <div className='App'>
+      <Welcome name="Bruce" heroName="Batman" />
+    </div>
+  )
+}
+
+export default App
+
+export default Welcome;
+
+Welcome.js
+
+import React, { Component } from 'react'
+
+class Welcome extends Component {
+  render() {
+    const { name, heroName } = this.props
+    return (
+      <div>Welcome {name} a.k.as {heroName}</div>
+    )
+  }
+}
+
+
+
+
+
+

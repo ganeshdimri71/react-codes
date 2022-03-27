@@ -1,0 +1,64 @@
+Event is a function and not a function call do not add the paraenthesis. 
+code example of event handling in functional component
+App.js
+
+import React from 'react'
+import './App.css'
+import FunctionClick from './components/FunctionClick'
+
+const App = () => {
+  return (
+    <div className='App'>
+      <FunctionClick></FunctionClick>
+    </div>
+  )
+}
+
+export default App
+
+FunctionClick.js
+
+import React from 'react'
+
+const FunctionClick = () => {
+    function clickHandler() {
+        console.log('Button Clicked...!')
+    }
+    return (
+        <div>
+            <button onClick={clickHandler}>Click</button>
+        </div>
+    )
+}
+
+export default FunctionClick
+
+
+code example of event handling in Class Component
+
+App.js is same as above
+
+ClassClick.js
+
+import React, { Component } from 'react'
+
+export default class ClassClick extends Component {
+    onClickHandler() {
+        console.log('clicked the button')
+    }
+    render() {
+        return (
+            <div>
+                <button
+                    onClick={this.onClickHandler}
+                >Click Me</button>
+            </div>
+        )
+    }
+}
+
+
+Binding eventHandler in React
+
+
+

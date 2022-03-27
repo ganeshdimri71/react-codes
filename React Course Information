@@ -1,0 +1,10 @@
+1. Basic information on react js...!
+2. Component, difference betwen functional and class components.
+3. Project Folder Structure and difference between npx and npm...!
+4. Functional Component and difference between default and named exports, class component, JSX,JSX code example, JSX difference,
+5. props and its example.
+6. props vs state, how state are used in the class components, code example where we are changing the state object by clicking the button.
+7. setState definition and usage, code example of state not been updated to UI but to the console,calls to setState are asynchronous. Code example of two console.log one is outside the setState function and the other is inside the callback function that is passed as a parameter to the setState function.!A example to solve the addressed issue. Destructing syntax
+   code example of destructing.! Destructing in the class component. code example of destructing the props in class component.
+   
+8. Events Handling in functional and class components. code example of the event handling in functinal component.Binding EventHandler in React.Four methods of binding the events to the class components.

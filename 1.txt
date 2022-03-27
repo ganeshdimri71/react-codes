@@ -1,0 +1,26 @@
+                                                               React JS
+
+Open source library for building user interface
+Not a Framework
+Focus on UI
+Rich Ecosystem
+
+Why React
+Created and maintained by facebook.
+More than 100k starts on Git-hub
+Huge Community
+In demand skillset
+
+Component Based Architecture
+Reusable Code
+React is declarative
+Tell React what you want and React wil build the actual UI
+React will handle efficiently updating and rendering of the components
+DOM updates are handles gracefully in React.
+
+
+More on why React?
+Seamlessly integrate react into any of your application
+Portion of your page or a complete page or even an entire application itself.
+React native for mobile application.
+

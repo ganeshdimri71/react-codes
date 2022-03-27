@@ -1,0 +1,61 @@
+Props are the optional input that your components can take and allowas a component to be dynamic. 
+Props are just the object that contains a attribute and their values that has been passed from their parent component.
+Sometimes we do not what are the property name that the props consists of so in that case we can use props.children to render those property values and specifie those value inside the Component that is being rendered.
+For the properties that we know are sure to be passed to the child component we pass them as a attributes and for those which we do not have any idea are passed as as a children to the component.
+In class Components the props are accessed as this.props.
+When specifying a component we can specify an extra properties to the component which are bundled together and known as props.
+props are immutable i.e the value of a props cannot be changed.eact component act as a Pure function with respect to their props.
+
+
+App component
+import React from 'react'
+import Greet from './components/Greet'
+import Welcome from './components/Welcome'
+import Hello from './components/Hello'
+import './App.css'
+
+const App = () => {
+  return (
+    <div className='App'>
+      <Greet name="Bruce" heroName="Batman">
+        <p>This is children props</p>
+      </Greet> 
+      <Greet name="Clarke" heroName="Bruce">
+        <button>Action</button>
+       </Greet>
+      <Greet name="Diana" heroName="Wonde Woman"/> 
+      <Welcome name="Bruce" heroName="Batman"/> 
+      <Welcome name="Clarke" heroName="Bruce"/> 
+    </div>
+  )
+}
+
+export default App
+
+Greet Component
+import React from 'react'
+
+const Greet = (props) => {
+    console.log(props)
+    return (
+        <div>Hello {props.name} a.k.a {props.heroName}
+            {props.children}
+        </div>
+    )
+}
+
+
+export default Greet
+
+Welcome Component
+import React, { Component } from 'react'
+
+class Welcome extends Component {
+  render() {
+    return (
+      <div>Welcome {this.props.name} a.k.as {this.props.heroName}</div>
+    )
+  }
+}
+
+export default Welcome;

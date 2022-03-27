@@ -1,0 +1,47 @@
+Functional Components.
+Functional Components are simply js function that can recieve a object called as props and returns a html or JSX.
+
+
+A component cannot be imported with any name if it has a default export and if it does not have default export then it has to to imported with the same name and should be included in the curly braces.
+
+Class Components.
+A class Components is basically a ES6 classes and can also recieve a optional object as a parameter called as props and return a simple JSX.
+Aparts from props it can maintain a simple private state which can store private information that can be used to describe the UI.
+
+
+Functional Components
+Simple functions
+Use Functional components as much as possible
+Absence of this keyword
+Solution without using state
+Mainly responsible for the UI
+stateless/Dunb/Presentational
+
+Class Components 
+More feature rich
+Maintain their own private data - state
+Complex UI logic
+Provide lifecycle hooks
+Stateful/Smart/Container
+
+JavaScript (JSX) - Extension to the Javascript language syntax.
+Write XML-like code for elements and components.
+JSX tags have a tag name, attributes, and children.
+JSX is not a necessity to write React applications.
+JSX makes your react code simpler and elegant.
+JSX ultimately transpiles to pure Javascript which is undestood by the browsers.
+JSX is similar to React.createElement which takes three parameter, the first one is the html tag, the second one is the object and the thrid one is the children it can have more than one children parameter also.The second value is the object having a key value pair like {id:'div'}
+React.createElement('div', { id: 'hello', className: 'dummyClass' },
+        React.createElement('h1', null, 'Hello Vishwas...!');
+Each JSX element is a synthetic sugar of calling a React.createElement and that is why we have to import a react library ti juse a JSX.
+
+JSX difference:
+class - className
+for - htmlFor
+camelCase propert naming convention
+onclick - onclick
+tabindex - tabIndex
+
+
+
+		
