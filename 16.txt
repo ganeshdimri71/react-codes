@@ -1,0 +1,156 @@
+Updating Lifecycle Methods
+
+1. static getDerivedStateFromProps(props,state)
+   Method is called every time a component is re-rendered
+   
+   set the state
+   
+   Do not cause side effects, Ex: HTTP requests
+
+2. shouldComponentUpdate(nextProps, nextState)
+   Dictates if the component should re-render or not.
+   
+   Performance optimization
+   
+   Do not cause side effects, Ex: HTTP requests Calling the setState method
+   
+3. render
+   Only required method
+   
+   Read props and state and return JSX
+   
+   Do not change state or interact with DOM or make ajax calls.
+  
+4. getSnapshotBeforeUpdate(prevProps, prevState)
+   called right before the changes from the virtual DOM are to be reflected in the DOM
+   
+   Capture some information from the DOM
+   
+   Method will either return null or return a value. Returned value will be passed as the thrid parameter to the next method.
+   
+   
+5. componentDidUpdate(prevProps,prevState,snapshot)
+   This method is called when the components and its sub-components has been render after the update.
+   
+   This method is called only one time every time the component re-renders.
+   
+   Cause side effects based on the value of the prev and next props.
+   Code Example:
+   
+   LifecycleA.js
+   import React, { Component } from 'react'
+import LifecycleB from './LifecycleB'
+
+class LifecycleA extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            name: 'Vishwas'
+        }
+        console.log('Lifecycle A constructor')
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        console.log('Lifecycle A getDerivedStateFromProps')
+        return null
+    }
+
+    componentDidMount() {
+        console.log('Lifecycle A componentDidMount')
+    }
+
+    shouldComponentUpdate() {
+        console.log('Lifecycle A shouldComponentUpdate')
+        return true
+    }
+
+    getSnapshotBeforeUpdate() {
+        console.log('Lifecycle A getSnapshotBeforeUpdate')
+        return null
+    }
+
+    componentDidUpdate() {
+        console.log('Lifecycle A componentDidUpdate')
+    }
+    changeState = () => {
+        this.setState({ name: 'Code Evolution' })
+    }
+    render() {
+        console.log('Lifecycle A render')
+        return (
+            <div>
+                <div>
+                    LifeCycle A
+                </div>
+                <button
+                    onClick={this.changeState}
+                >Change State</button>
+                <LifecycleB />
+            </div>
+
+        )
+    }
+}
+
+export default LifecycleA
+
+LifecycleB.js
+
+import React, { Component } from 'react'
+
+class LifecycleB extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            name: 'Vishwas'
+        }
+        console.log('Lifecycle B constructor')
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        console.log('Lifecycle B getDerivedStateFromProps')
+        return null
+    }
+
+    componentDidMount() {
+        console.log('Lifecycle B componentDidMount')
+    }
+
+    shouldComponentUpdate() {
+        console.log('Lifecycle B shouldComponentUpdate')
+        return true
+    }
+
+    getSnapshotBeforeUpdate() {
+        console.log('Lifecycle B getSnapshotBeforeUpdate')
+        return null
+    }
+
+    componentDidUpdate() {
+        console.log('Lifecycle B componentDidUpdate')
+    }
+    render() {
+        console.log('Lifecycle B render')
+        return (
+            <div>
+                LifeCycle B
+            </div>
+        )
+    }
+}
+
+export default LifecycleB
+
+Unmounting Phase:
+We should never call setState method here because the component is never re-rendered again.
+
+Method is invoked immediatedly before a component is unmounted and destroyed.
+
+Cancelling any network requests, removing event handlers, cancelling subscription and
+also invalidating timers.
+
+
+
+

@@ -1,0 +1,104 @@
+Map methods are JSX expressions that needs to be evaluated and a way to do it is to include it inside a curly braces.
+Code Example:
+import React from 'react'
+NameList.js
+function NameList() {
+    const names = ['Bruce', 'Clarke', 'Diana']
+    const nameList = names.map(name => <h2>{name}</h2>)
+    return (
+        <div className='App'>
+            {nameList}
+        </div>
+    )
+}
+
+export default NameList
+
+
+Code Example of rendering a lIst in React JS along with unique keys:
+NameList.js
+
+import React from 'react'
+import Person from './Person'
+
+function NameList() {
+    const persons = [
+        {
+            id: 1,
+            name: 'Bruce',
+            age: 30,
+            skill: 'React'
+        },
+        {
+            id: 2,
+            name: 'Clark',
+            age: 25,
+            skill: 'Angular'
+        },
+        {
+            id: 3,
+            name: 'Diana',
+            age: 28,
+            skill: 'Vue'
+        },
+    ]
+    const personList = persons.map(person => <Person person={person} />
+    )
+    return (
+        <div className='App'>
+            {personList}
+        </div>
+    )
+}
+
+export default NameList
+
+Person.js
+import React from 'react'
+
+function Person({person}) {
+    return (
+        <div>
+            <h2>I am {person.name} I am {person.age} years old.I Know {person.skill}</h2>
+        </div>
+    )
+}
+
+export default Person
+
+Key props are not accessible in the child component.
+Keys props help react to understand which item in the list has changed so that it can render the UI effectively.
+
+Lists and Keys:
+
+A "key" is a special string attribute you need to include when creating lists of elements.
+keys give the elements a stable identity.
+keys help React identify which items have changes, are added, or are removed.
+Helps in efficient update of the user interface.
+
+
+Code Example:
+import React from 'react'
+
+function NameList() {
+    const names = ['Bruce', 'Clark', 'Diana']
+    const nameList = names.map((name, index) => <h2 key={index}> {name} </h2>
+    )
+    return (
+        <div className='App'>
+            {nameList}
+        </div>
+    )
+}
+
+export default NameList
+
+Index as a Key:
+When to use index as a key?
+
+1. The items in your list do not have a unique id.
+2. The list is a static list and will not change.
+3. The list will never be reordered or filtered.
+
+
+

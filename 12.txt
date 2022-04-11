@@ -1,0 +1,133 @@
+Styling React Components
+1. CSS stylesheets
+2. Inline styling
+3. CSS Modules
+4. CSS in JS Libraries.
+
+Code Example of using className conditionally based on props value
+import React from 'react'
+import './myStyles.css'
+
+function StyleSheet(props) {
+    let className = props.primary ? 'primary' : ''
+    return (
+        <div>
+            <h1 className={className} >StyleSheets</h1>
+        </div>
+    )
+}
+
+export default StyleSheet
+
+myStyles.css
+.primary{
+    color: orange;
+}
+
+Code Example of using className as template literals:
+import React from 'react'
+import './myStyles.css'
+
+function StyleSheet(props) {
+    let className = props.primary ? 'primary' : ''
+    return (
+        <div>
+            <h1 className={`${className} font-xl`} >StyleSheets</h1>
+        </div>
+    )
+}
+
+export default StyleSheet
+
+.primary{
+    color: orange;
+}
+
+.font-xl{
+    font-size: 72px;
+}
+
+
+Inline Styling:
+In React inline styling is applied with the help of object which are represented in the form of key-pair values.
+
+Code Example of inline styling
+import React from 'react'
+const heading = {
+    fontSize: '72px',
+    color: 'blue'
+}
+function Inline() {
+    return (
+        <div>
+            <h1 style={heading}>Inline</h1>
+        </div>
+    )
+}
+
+export default Inline
+
+
+Module: The file name should be suffixed with .module.css
+
+The module.css is locally scoped and it applies to only the specific file in which
+it is mentioned, whears the .css is globally scoped and it will apply to parent as well 
+as the child components.
+
+Code Example of style.css and module.css and the example of .css file being
+globally applied to both the parent and the child component.
+
+App.js
+import React from 'react'
+import './App.css'
+import './appStyles.css'
+import styles from './appStyles.module.css'
+import Inline from './components/Inline'
+
+
+
+const App = () => {
+  return (
+    <div className='App'>
+      <h1 className='error'>Error</h1>
+      <h1 className={styles.success}>Success</h1>
+      <Inline />
+    </div>
+  )
+}
+
+export default App
+
+Inline.js
+import React from 'react'
+const heading = {
+    fontSize: '72px',
+    color: 'blue'
+}
+function Inline() {
+    return (
+        <div>
+            <h1 className='error'>Error</h1>
+            <h1 style={heading}>Inline</h1>
+        </div>
+    )
+}
+
+export default Inline
+
+appStyles.css
+.error{
+    color: red;
+}
+
+appStyles.module.css
+.success{
+    color: green;
+}
+
+Since the module file is refrenced so it cannot be used in the child component
+
+
+
+
+

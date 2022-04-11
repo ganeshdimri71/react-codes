@@ -1,0 +1,80 @@
+Code Example of Fragment...!
+FragmentDemo.js
+import React from 'react'
+import './App.css'
+import FragmentDemo from './components/FragmentDemo'
+
+const App = () => {
+  return (
+    <div className='App'>
+      <FragmentDemo />
+    </div>
+  )
+}
+
+export default App
+
+Another Code Example Of Fragment
+Table.js
+
+import React from 'react'
+import Column from './Column'
+
+function Table() {
+    return (
+        <table>
+            <tbody>
+                <tr>
+                    <Column />
+                </tr>
+            </tbody>
+
+        </table>
+    )
+}
+
+export default Table
+
+Column.js
+
+import React from 'react'
+
+function Column() {
+    return (
+        <>
+            <td>Name</td>
+            <td>Vishwas</td>
+        </>
+    )
+}
+
+export default Column
+
+
+Key attribute is the only attribute that can be passed to the React.Fragments
+
+Code Example of Key as an attribute to the React Fragment
+
+Column
+
+import React from 'react'
+
+function Column() {
+    const items = []
+    return (
+        <React.Fragment>
+            {
+                items.map(item => (
+                    <React.Fragment key={item.id}>
+                        <h1>Title</h1>
+                        <p>{item.title}</p>
+                    </React.Fragment>
+                ))
+            }
+            <td>Name</td>
+            <td>Vishwas</td>
+        </React.Fragment>
+    )
+}
+
+export default Column

@@ -8,3 +8,49 @@
    code example of destructing.! Destructing in the class component. code example of destructing the props in class component.
    
 8. Events Handling in functional and class components. code example of the event handling in functinal component.Binding EventHandler in React.Four methods of binding the events to the class components.
+9. Child and Parent communications, Execution of the method defined in the Parent component in the child component, passing methods to the child component as props, do not add parenthesis when passing the methos as a props to the child component.
+   arrow function as a way to pass a parameter from the child component to the parent component Code Execution 
+   
+10. Conditional Rendering
+    if/else = code Example.
+	Element variables = Code Example
+	Ternary conditional approach = code example:
+	
+	Short Circuit Approach:
+	It is a special case of the ternary operator.
+	When we want to return something or nothing we use this approach.
+	Short Circuit code example
+
+11. List in React JS:
+	code example of list rendering:
+	A standard code example of rendering a List in React JS:
+	List and Keys in React JS: Code Example:
+	Index as a Key: code Example:
+   When to use index as a key:
+   
+ 12. Apply css based on props =  code Example
+     Class name as template Literals = code Example
+	 Inline Styling.
+	 Module.
+	 
+13. Controlled Components
+    Code Example of controlled components(input textarea and select tag)
+   
+14. Lifecycle Methods:
+   
+15. Mounting Lifecycle Methods:
+    Code Example of Moutning lifecycle methods:
+	Code Example of Mounting lifecycle methods of a parent and a child component.
+    
+16. Updating Lifecycle Methods:
+    Code Example:
+	
+	Unmounting Phase:
+	componentWillUnmount():
+	
+17. React Fragments:
+
+   Three Code Example...!
+    
+	
+    

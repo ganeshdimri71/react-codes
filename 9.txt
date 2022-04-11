@@ -1,0 +1,63 @@
+Communication of the child component with the parent component, with the help of the reference of the function passed to the child component.
+
+App.js
+import React from 'react'
+import './App.css'
+import EventBind from './components/EventBind'
+import Parent from './components/Parent'
+
+const App = () => {
+  return (
+    <div className='App'>
+      <Parent />
+    </div>
+  )
+}
+
+export default App
+
+
+Parent.js
+
+import React, { Component } from 'react'
+import ChildComponent from './ChildComponent'
+
+class Parent extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            parentName: 'Parent'
+        }
+        this.greetParent = this.greetParent.bind(this)
+    }
+
+    greetParent(childName) {
+        alert(`Hello  ${this.state.parentName} from ${childName}`)
+    }
+    render() {
+        return (
+            <div>
+                <ChildComponent greetHandler={this.greetParent} />
+            </div>
+        )
+    }
+}
+
+export default Parent
+
+ChildComponent.js
+import React from 'react'
+
+function ChildComponent(props) {
+    return (
+        <div>
+            <button
+                onClick={() => props.greetHandler('child')}
+            >Greet Parent</button>
+        </div>
+    )
+}
+
+export default ChildComponent
+

@@ -1,0 +1,97 @@
+Conditional Rendering
+1. if/else
+2. Element variables
+3. Ternary conditional operator
+4. Short circuit operator
+
+1. If/else
+   If else statement cannot be used inside a JSX because it is a synthetic sugar to the function calls and object construction. Code Example
+    UserGreeting.js
+	import React, { Component } from 'react'
+
+class UserGreeting extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            isLoggedIn: false
+        }
+    }
+    render() {
+        if (this.state.isLoggedIn) {
+            return (
+                <div>
+                    Welcome Vishwas
+                </div>
+            )
+        }
+        else {
+            return (
+                <div>
+                    Welcome Guest
+                </div>
+            )
+        }
+    }
+}
+
+export default UserGreeting
+
+
+Element Variable
+In this approach the variable stores the message that is to be rendered.
+Code Example:-
+UserGreeting.js
+import React, { Component } from 'react'
+
+class UserGreeting extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            isLoggedIn: false
+        }
+    }
+    render() {
+        let message;
+        if (this.state.isLoggedIn) {
+            message = <div>Welcome Vishwas</div>
+        } else {
+            message = <div>Welocme Guest</div>
+        }
+        return (
+            <div>{message}</div>
+       )
+    }
+}
+
+export default UserGreeting
+
+
+Ternary Conditional Operator:
+This approach can be used inside a JSX:
+
+UserGreeting.js
+import React, { Component } from 'react'
+
+class UserGreeting extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            isLoggedIn: true
+        }
+    }
+    render() {
+        return (
+            this.state.isLoggedIn ?
+                (<div>Welcome Vishwas</div>) :
+               ( <div>Welcome Guest</div>)
+        )
+
+    }
+}
+
+export default UserGreeting
+
+   

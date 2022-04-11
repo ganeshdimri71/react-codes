@@ -1,0 +1,168 @@
+Mounting Lifecycle Methods
+1. constructor(props): 
+   A special function that wil get callled whenever a new component is created
+   
+   Initializing state
+   
+   Binding the event handlers
+   
+   Do not caise side effects, Ex: HTTP requests
+   
+   super(props)
+   Directly overwrite this.state
+  
+ 2. static getDerivedStateFromProps(props, state)
+    This method does not have the access to the this keyword that is why we cannot call
+	the this.setState method here instead this method returns a object representing a new state of the component.
+	
+	When the state of the component depends on the change in props passed by the parent component
+	
+	Do not caise side effects, Ex: HTTP requests
+	
+3. render:
+   Reads props and state and return JSX.
+   
+   Only required method.
+   
+   A render function is a pure function in respect to state and props. It should return the same state and props to 
+   render the UI.
+   
+   Do not change state or interact with DOM or make ajax calls.
+   
+   Right afer the render method the children lifecycle methods are also executed.
+   
+4. componentDidMount:
+   Invoked immediatedly after a component and all its children components have been rendered to the DOM.
+   
+   Cause side effects, Ex: Interact with the DOM or perform any ajax calls to load data.
+   
+Code Example of Mounting Phase
+Lifecycle.js
+
+import React, { Component } from 'react'
+
+class LifecycleA extends Component {
+     constructor(props) {
+       super(props)
+     
+       this.state = {
+          name : 'Vishwas'
+         }
+         console.log('Lifecycle A constructor')
+    }
+    
+    static getDerivedStateFromProps(props, state) {
+        console.log('Lifecycle A getDerivedStateFromProps')
+        return null
+    }
+
+    componentDidMount() {
+        console.log('Lifecycle A componentDidMount')
+    }
+
+    render() {
+        console.log('Lifecycle A render')
+    return (
+        <div>
+                LifeCycle A
+      </div>
+    )
+  }
+}
+
+export default LifecycleA
+
+Output :
+Lifecycle A constructor
+LifecycleA.js:14 Lifecycle A getDerivedStateFromProps
+LifecycleA.js:23 Lifecycle A render
+LifecycleA.js:19 Lifecycle A componentDidMount
+
+
+Code Example of Mounting lifecycle methods of a parent and a child component.
+
+LifecycleA.js
+import React, { Component } from 'react'
+import LifecycleB from './LifecycleB'
+
+class LifecycleA extends Component {
+     constructor(props) {
+       super(props)
+     
+       this.state = {
+          name : 'Vishwas'
+         }
+         console.log('Lifecycle A constructor')
+    }
+    
+    static getDerivedStateFromProps(props, state) {
+        console.log('Lifecycle A getDerivedStateFromProps')
+        return null
+    }
+
+    componentDidMount() {
+        console.log('Lifecycle A componentDidMount')
+    }
+
+    render() {
+        console.log('Lifecycle A render')
+        return (
+        <div>
+                <div>
+                    LifeCycle A
+                </div>
+                <LifecycleB />
+        </div>
+        
+    )
+  }
+}
+
+export default LifecycleA
+
+LifecycleB.js
+
+import React, { Component } from 'react'
+
+class LifecycleB extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            name: 'Vishwas'
+        }
+        console.log('Lifecycle B constructor')
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        console.log('Lifecycle B getDerivedStateFromProps')
+        return null
+    }
+
+    componentDidMount() {
+        console.log('Lifecycle B componentDidMount')
+    }
+
+    render() {
+        console.log('Lifecycle B render')
+        return (
+            <div>
+                LifeCycle B
+            </div>
+        )
+    }
+}
+
+export default LifecycleB
+
+
+Output:
+Lifecycle A constructor
+LifecycleA.js:15 Lifecycle A getDerivedStateFromProps
+LifecycleA.js:24 Lifecycle A render
+LifecycleB.js:10 Lifecycle B constructor
+LifecycleB.js:14 Lifecycle B getDerivedStateFromProps
+LifecycleB.js:23 Lifecycle B render
+LifecycleB.js:19 Lifecycle B componentDidMount
+LifecycleA.js:20 Lifecycle A componentDidMount
+   
