@@ -1,0 +1,92 @@
+Error Handling Phase Methods:
+
+static getDerivedStateFromError(error)
+componentDidCtach(error,info)
+Whenever there is a error in the React application it will unmount the full component. With the help of error boundary we can catch the error and display the fallback UI representing the error.
+
+Error Boundary
+
+A class component that implements either one or both of the lifecycle methods getDerivedStateFromError or componentDidCatch becomes an error boundary.
+
+The static method getDerivedStateFromError methods is used to render a fallback UI after an error is thrown and the componentDidCtach is used to log the error information.
+The component that shows an error should fall into fallback UI and the rest of the component should render.
+For a class component to become a Error Boundary we need to define static getDerivedStateFromError method or componentDidCatch method.
+Code Example of Error Boundary
+
+App.js
+import React from 'react'
+import './App.css'
+import ErrorBoundary from './components/ErrorBoundary'
+import Hero from './components/Hero'
+
+const App = () => {
+  return (
+    <div className='App'>
+      <ErrorBoundary>
+        <Hero heroName='Batman' />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Hero heroName='Superman' />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Hero heroName='Joker' />
+      </ErrorBoundary>
+
+
+    </div>
+  )
+}
+
+export default App
+
+Hero.js
+import React from 'react'
+
+function Hero({ heroName }) {
+    if (heroName === 'Joker') throw new Error('Not a Hero')
+    return (
+        <div>{heroName}</div>
+    )
+}
+
+export default Hero
+
+ErrorBoundary.js
+import React, { Component } from 'react'
+
+class ErrorBoundary extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            hasError: false
+        }
+    }
+    static getDerivedStateFromError(error) {
+        return {
+            hasError: true
+        }
+    }
+    render() {
+        if (this.state.hasError) {
+            return <h1>Something went wrong</h1>
+        }
+        return this.props.children
+
+    }
+}
+
+export default ErrorBoundary
+
+Error Boundary will not catch the error on event Handlers.
+Error boundaries are React components that catch Javascript error in their child component tree log those error, and displays the fall-back UI.
+
+A class component becomes an Error Boundary by defining either or both of getDerivedStateFromError and componentDidCatch lifecycle methods.
+
+The placemet of the Error Boundary also matters as it controls if the entire app should have the fall-back UI or just the component causing the problem.
+
+Provide a way to gracefully handle error in application code.
+
+
+
+

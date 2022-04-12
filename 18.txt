@@ -1,0 +1,52 @@
+Pure Component
+Regular Component:
+A regular component does not implement the shouldComponentUpdate method.It always returns true by default.
+
+Pure Component:
+A pure Component on the other hand implements shouldComponentUpdate with a shallow props and state comparision.
+
+Shallow Comparison.
+Primtive Types
+a(SC)b returns true if a and b have the same value and are of the same type.
+Ex: string 'Vishwas'(SC) string 'Vishwas' returns true.
+
+Complex Types
+
+a(SC)b returns true if a and b reference the exact same object.
+
+var a = [1,2,3]
+var b = [1,2,3]
+var c = a;
+
+var ab_eq = (a===b) // false
+var ac_eq = (a===c) // true
+
+var a = {x:1,y:2};
+var b = {x:1, y:2};
+
+var c = a;
+
+var ab_eq = (a == b); // false
+var ac_eq = (a == c) // true
+
+Pure Component
+A Pure Component implements shouldComponentUpdate with a shallow prop and state comparision.
+
+SC pf previous with currentState difference Re-render component.
+SC of prevProps with currentProps difference Re-render component.
+
+When dealing with the pure component never mutate the list by pushing the items to it,
+because the reference to the array or object does not change and it will not cause the re-render, always returns a new object or array
+when dealing with PureComponent.
+
+We can create a component by extending the PureComponent class.
+
+A PureComponent implements the shouldComponentUpdate lifecycle method by performing a shallow comparision on the
+props and state of the component.
+
+If there is no difference, the component is not re-rendered - performance boost.
+
+It is a good idea to ensure that all the children component are also pure to avoud unexcpected behaviour.
+
+Never mutate the state. Always return a new object that reflect the new state.
+

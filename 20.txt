@@ -1,0 +1,174 @@
+Refs:
+Refs make it easy to access the DOM node directly within react.
+
+Code example of refs:
+
+RefsComponent.js
+	import React, { Component } from 'react'
+
+class RefsDemo extends Component {
+    constructor(props) {
+        super(props)
+        this.inputRef = React.createRef()
+    }
+    componentDidMount() {
+        this.inputRef.current.focus()
+        console.log(this.inputRef);
+    }
+    clickHandler = () => {
+        alert(this.inputRef.current.value)
+    }
+    render() {
+        return (
+            <div>
+                <input type="text"
+                    ref={this.inputRef}
+                />
+                <button
+                    onClick={this.clickHandler}
+                >Click</button>
+            </div>
+        )
+    }
+}
+
+export default RefsDemo
+
+Code Example Of CallbackRef
+import React, { Component } from 'react'
+
+class RefsDemo extends Component {
+    constructor(props) {
+        super(props)
+        this.inputRef = React.createRef()
+        this.cbRef = null;
+        this.setCbRef = (element) => {
+            this.cbRef = element
+        }
+    }
+    componentDidMount() {
+        if (this.cbRef) {
+            this.cbRef.focus()
+        }
+        console.log(this.inputRef);
+    }
+    clickHandler = () => {
+        alert(this.inputRef.current.value)
+    }
+    render() {
+        return (
+            <div>
+                <input type="text"
+                    ref={this.setCbRef}
+                />
+                <button
+                    onClick={this.clickHandler}
+                >Click</button>
+            </div>
+        )
+    }
+}
+
+export default RefsDemo
+
+If we need a ref from a parent component into the child component it is possible:
+Code Example of the same:
+
+FocusInput.js
+import React, { Component } from 'react'
+import Input from './Input'
+
+class FocusInput extends Component {
+    constructor(props) {
+        super(props)
+        this.componentRef = React.createRef()
+    }
+    clickHandler = () => {
+        this.componentRef.current.focusInput()
+    }
+    render() {
+        return (
+            <div>
+                <Input ref={this.componentRef} />
+                <button
+                    onClick={this.clickHandler}
+                >Focus Input</button>
+            </div>
+        )
+    }
+}
+
+export default FocusInput
+
+Input.js
+import React, { Component } from 'react'
+
+class Input extends Component {
+    constructor(props) {
+        super(props)
+        this.inputRef = React.createRef()
+    }
+
+    focusInput() {
+        this.inputRef.current.focus()
+    }
+    render() {
+        return (
+            <div>
+                <input type="text" ref={this.inputRef} />
+            </div>
+        )
+    }
+}
+
+export default Input
+
+
+Forwarding Ref is a method a passing a ref to its child component.
+Techinque with the help of which when the button is clicked form the parent component the focus is recieved in the child component
+ForwardRef method will take a arrow function as a parameter.When a component is passed to the ForwardRef method itrecieves the ref as its second parameter.
+In this case the ref is forwarded from the parent component to the native input element and not the the child component.
+
+In the code below we pass the ref as an attribute to the child component but the child component will pass the ref to the native input component, now the Parent can directly access the native input component with the help of this.inputRef.current.
+
+FRParentInput.js
+import React, { Component } from 'react'
+import FRInput from './FRInput'
+
+class FRParentInput extends Component {
+    constructor(props) {
+        super(props)
+        this.inputRef = React.createRef()
+    }
+    clickHandler = () => {
+        this.inputRef.current.focus()
+    }
+    render() {
+        return (
+            <div>
+                <FRInput ref={this.inputRef} />
+                <button
+                    onClick={this.clickHandler}
+                >Focus Input</button>
+            </div>
+        )
+    }
+}
+
+export default FRParentInput
+
+FRInput.js
+import React from 'react'
+
+const FRInput = React.forwardRef((props, ref) => {
+    return (
+        <div>
+            <input type="text" ref={ref} />
+        </div>
+    )
+})
+
+export default FRInput
+
+
+

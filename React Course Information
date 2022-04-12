@@ -51,6 +51,121 @@
 17. React Fragments:
 
    Three Code Example...!
+   
+18. Pure Component, Regular Component and Parent Component, Shallow Component.
+    Code Example
+	
+App.js
+	
+	import React from 'react'
+import './App.css'
+import ParentComponent from './components/ParentComponent'
+
+const App = () => {
+  return (
+    <div className='App'>
+      <ParentComponent />
+    </div>
+  )
+}
+
+export default App
+
+ ParentComponent.js
+  
+  import React, { Component } from 'react'
+import PureComponents from './PureComponents'
+import RegularComponent from './RegularComponent'
+
+class ParentComponent extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            name: 'Vishwas'
+        }
+    }
+    componentDidMount() {
+        setInterval(() => {
+            this.setState({ name: 'Vishwas' })
+        }, 2000)
+    }
+    render() {
+        console.log('***ParentComponent Render****')
+        return (
+            <div>ParentComponent
+                <RegularComponent name={this.state.name} />
+                <PureComponents name={this.state.name}/>
+            </div>
+
+        )
+    }
+}
+
+export default ParentComponent
+
+RegularComponet.js
+import React, { Component } from 'react'
+
+ class RegularComponent extends Component {
+     render() {
+         console.log('***RegularComponent Render****')
+    return (
+        <div>RegularComponent {this.props.name }</div>
+    )
+  }
+}
+
+export default RegularComponent
+
+ParentComponent.js
+import React, { PureComponent } from 'react'
+
+ class PureComponents extends PureComponent {
+   render() {
+     console.log('***PureComponents Render****')
+    return (
+      <div>PureComponent {this.props.name}</div>
+    )
+  }
+}
+
+export default PureComponents
+
+
+19. React.memo
+
+20. Concept of Refs:
+    Code Example of Ref:
+	Second Approach of creating refs with code example:
+	Adding refs to the class component:
+	When clicking on the button in the parent component the child element should get the focus.
+	Code Example of the above written line:
+	Forwarding Ref
+	
+21 DOM Portal:
+   The first parameter to the DOM Portal can be the any html element that we want to render and the second parameter is the element inside which we want to render the html element.
+   
+   Code Example
+   
+22 Error Handling Phase Methods
+   Code Example of Error Boundary
+   
+23. Higher Order Component.
+    Code Example of repeating the code.
+	Code Example of HOC.
+	Code Example of passing a props to the child component and recieving it in the HOC.
+	Code Example of passing a parameter to the HOC function
+
+24. RenderProps
+    Simple Code Example of render props.
+    
+   
+      
+	
+	
+    
+    
     
 	
     

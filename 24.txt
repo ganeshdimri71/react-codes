@@ -1,0 +1,254 @@
+RenderProps:
+
+In React it is normal to pass a props whoose name is render and whoose value is controlled by the component.
+The term render prop refers to a techinque for sharing code between components using a prop whoose value is a function.
+ Simple Code Example of render props.
+ 
+ App.js
+ 
+ import React from 'react'
+import './App.css'
+import ClickCounterTwo from './components/ClickCounterTwo'
+import CounterOne from './components/CounterOne'
+import HoverCounterTwo from './components/HoverCounterTwo'
+import User from './components/User'
+
+const App = () => {
+  return (
+    <div className='App'>
+      <ClickCounterTwo />
+      <HoverCounterTwo />
+      <User render={(isLoggedIn) => isLoggedIn ? 'Vishwas' : 'Guest'} />
+      
+    </div>
+  )
+}
+
+export default App
+
+ClickCounterTwo.js
+
+import React, { Component } from 'react'
+
+class ClickCounterTwo extends Component {
+   
+    render() {
+        const { count } = this.state
+        return (
+            <button
+                onClick={this.incrementCount}
+            >Clicked {count} times</button>
+        )
+    }
+}
+
+export default ClickCounterTwo
+
+HoverCounterTwo.js
+
+import React, { Component } from 'react'
+
+class HoverCounterTwo extends Component {
+    render() {
+        const { count } = this.state
+        return (
+            <h1
+                onMouseOver={this.incrementCount}
+            >Hovered {count} times</h1>
+        )
+    }
+}
+
+export default HoverCounterTwo
+
+
+User.js
+
+import React, { Component } from 'react'
+
+class User extends Component {
+   
+
+    render() {
+        return (
+            <div>
+                {this.props.render(false)}
+            </div>
+        )
+    }
+}
+
+export default User
+
+
+
+Advanced Code for RenderProp:
+
+App.js
+
+import React from 'react'
+import './App.css'
+import ClickCounterTwo from './components/ClickCounterTwo'
+import CounterOne from './components/CounterOne'
+import HoverCounterTwo from './components/HoverCounterTwo'
+import User from './components/User'
+
+const App = () => {
+  return (
+    <div className='App'>
+      <CounterOne render={(count, incrementCount) => <ClickCounterTwo count={count} incrementCount={incrementCount} />} />
+      <CounterOne render={(count, incrementCount) => <HoverCounterTwo count={count} incrementCount={incrementCount} />} />
+    </div>
+  )
+}
+
+export default App
+
+ClickCounterTwo.js
+import React, { Component } from 'react'
+
+class ClickCounterTwo extends Component {
+
+    render() {
+        const { count, incrementCount } = this.props
+        return (
+            <button
+                onClick={incrementCount}
+            >Clicked {count} times</button>
+        )
+    }
+}
+
+export default ClickCounterTwo
+
+HoverCounterTwo.js
+
+import React, { Component } from 'react'
+
+class HoverCounterTwo extends Component {
+    render() {
+        const { count, incrementCount } = this.props
+        return (
+            <h1
+                onMouseOver={incrementCount}
+            >Hovered {count} times</h1>
+        )
+    }
+}
+
+export default HoverCounterTwo
+
+CounterOne.js
+
+import React, { Component } from 'react'
+
+class CounterOne extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            count: 0
+        }
+    }
+    incrementCount = () => {
+        this.setState(prevState => {
+            return { count: prevState.count + 1 }
+        })
+    }
+    render() {
+        return (
+            <div>
+                {this.props.render(this.state.count, this.incrementCount)}
+            </div>
+        )
+    }
+}
+
+export default CounterOne
+
+
+ProLevel Code of Render Prop:
+
+App.js
+
+import React from 'react'
+import './App.css'
+import ClickCounterTwo from './components/ClickCounterTwo'
+import CounterOne from './components/CounterOne'
+import HoverCounterTwo from './components/HoverCounterTwo'
+import User from './components/User'
+
+const App = () => {
+  return (
+    <div className='App'>
+      <CounterOne>{(count, incrementCount) =>( <ClickCounterTwo count={count} incrementCount={incrementCount} />)}
+      </CounterOne>
+      <CounterOne>
+         { (count, incrementCount) =>( <HoverCounterTwo count={count} incrementCount={incrementCount} />)}
+      </CounterOne>
+    </div>
+  )
+}
+
+export default App
+
+
+CounterOne.js
+import React, { Component } from 'react'
+
+class CounterOne extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            count: 0
+        }
+    }
+    incrementCount = () => {
+        this.setState(prevState => {
+            return { count: prevState.count + 1 }
+        })
+    }
+    render() {
+        return (
+            <div>
+                {this.props.children(this.state.count, this.incrementCount)}
+            </div>
+        )
+    }
+}
+
+export default CounterOne
+
+ClickCounterTwo.js
+import React, { Component } from 'react'
+
+class ClickCounterTwo extends Component {
+
+    render() {
+        const { count, incrementCount } = this.props
+        return (
+            <button
+                onClick={incrementCount}
+            >Clicked {count} times</button>
+        )
+    }
+}
+
+export default ClickCounterTwo
+
+
+
+HoverCounterTwo.js
+import React, { Component } from 'react'
+
+class HoverCounterTwo extends Component {
+    render() {
+        const { count, incrementCount } = this.props
+        return (
+            <h1
+                onMouseOver={incrementCount}
+            >Hovered {count} times</h1>
+        )
+    }
+}
+
+export default HoverCounterTwo

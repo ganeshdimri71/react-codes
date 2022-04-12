@@ -1,0 +1,51 @@
+React.memo:
+What pure component is to the Class component memo is to the function component.
+Code Example of React.memo
+
+ParentComponent.js
+
+import React, { Component, PureComponent } from 'react'
+import MemoComponent from './MemoComponent'
+import PureComponents from './PureComponents'
+import RegularComponent from './RegularComponent'
+
+class ParentComponent extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            name: 'Vishwas'
+        }
+    }
+    componentDidMount() {
+        setInterval(() => {
+            this.setState({ name: 'Vishwas' })
+        }, 2000)
+    }
+    render() {
+        console.log('***ParentComponent Render****')
+        return (
+            <div>ParentComponent
+                <MemoComponent name={this.state.name} />
+            </div>
+
+        )
+    }
+}
+
+export default ParentComponent
+
+
+MemoComponent.js
+import React from 'react'
+
+function MemoComponent({ name }) {
+    console.log('Rendering Memo Component')
+    return (
+        <div>{name}</div>
+    )
+}
+
+export default React.memo(MemoComponent)
+
+React.memo is a High Order Component that takes a component as a arguments and add some functinality to it and returns a enhanced component.

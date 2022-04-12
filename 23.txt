@@ -1,0 +1,348 @@
+HOC is used to share the common functinality between the Child component withut repeating the code.
+Code Example of repeating the code.
+
+App.js
+import React from 'react'
+import './App.css'
+import ClickCounter from './components/ClickCounter'
+import HoverCounter from './components/HoverCounter'
+
+const App = () => {
+  return (
+    <div className='App'>
+      <ClickCounter />
+      <HoverCounter />
+    </div>
+  )
+}
+
+export default App
+
+
+ClickCounter.js
+import React, { Component } from 'react'
+
+class ClickCounter extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            count: 0
+        }
+    }
+    incrementCount = () => {
+        this.setState(prevState => {
+            return { count: prevState.count + 1 }
+        })
+    }
+    render() {
+        const { count } = this.state
+        return (
+            <div>
+                <button
+                    onClick={this.incrementCount}
+                >Clicked {count} times</button>
+            </div>
+        )
+    }
+}
+
+export default ClickCounter
+
+
+
+HoverCounter.js
+import React, { Component } from 'react'
+
+class HoverCounter extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            count: 0
+        }
+    }
+    incrementCount = () => {
+        this.setState(prevState => {
+            return { count: prevState.count + 1 }
+        })
+    }
+    render() {
+        const { count } = this.state
+        return (
+            <div>
+                <h1
+                    onMouseOver={this.incrementCount}
+                >Hover {count} times</h1>
+            </div>
+        )
+    }
+}
+
+export default HoverCounter
+
+
+Higher Order Component - HOC
+
+A pattern where a function takes a component as an arguement and returns a new component.
+
+const NewComponent = higherOrderComponent(originalComponent)
+const EnhancedComponent = higherOrderComponent(originalComponent)
+
+const IronMan = withSuit(TonyStark)
+
+A function that accepts a Original Component and returns a New Component is called a higher order component.
+
+Code Example of HOC.:
+
+App.js
+import React from 'react'
+import './App.css'
+import ClickCounter from './components/ClickCounter'
+import HoverCounter from './components/HoverCounter'
+
+const App = () => {
+  return (
+    <div className='App'>
+      <ClickCounter />
+      <HoverCounter />
+    </div>
+  )
+}
+
+export default App
+
+withCounter.js
+
+import React from 'react'
+
+const withCounter = (WrappedComponent) => {
+    class WithCounter extends React.Component {
+        constructor(props) {
+            super(props)
+
+            this.state = {
+                count: 0
+            }
+        }
+        incrementCount = () => {
+            this.setState(prevState => {
+                return { count: prevState.count + 1 }
+            })
+        }
+        render() {
+            return <WrappedComponent name='Vishwas' count={this.state.count} incrementCount={this.incrementCount} />
+        }
+    }
+    return WithCounter
+}
+
+export default withCounter
+
+
+
+ClickCounter.js
+import React, { Component } from 'react'
+import withCounter from './withCounter'
+
+class ClickCounter extends Component {
+    render() {
+        const { count, incrementCount } = this.props
+        return (
+            <div>
+                <button
+                    onClick={incrementCount}
+                > Clicked {count} times</button>
+            </div>
+        )
+    }
+}
+
+export default withCounter(ClickCounter)
+
+
+HoverCounter.js
+import React, { Component } from 'react'
+import withCounter from './withCounter'
+class HoverCounter extends Component {
+    render() {
+        const { count, incrementCount } = this.props
+        return (
+            <div>
+                <h1
+                    onMouseOver={incrementCount}
+                > Hover {count} times</h1>
+            </div>
+        )
+    }
+}
+
+export default withCounter(HoverCounter)
+
+The props that are passsed to the  Component Wrapped inside HOC are not acessible in that component, instead it is accessible in the HOC component.
+The props is not passed to the wrapped component but to the HOC Component
+
+
+Passing down the props to the HOC Component.
+
+
+import React from 'react'
+import './App.css'
+import ClickCounter from './components/ClickCounter'
+import HoverCounter from './components/HoverCounter'
+
+const App = () => {
+  return (
+    <div className='App'>
+      <ClickCounter name='Vishwas' />
+      <HoverCounter name='Vishwas' />
+    </div>
+  )
+}
+
+export default App
+
+
+withCounter.js
+import React from 'react'
+
+const withCounter = (WrappedComponent) => {
+    class WithCounter extends React.Component {
+        constructor(props) {
+            super(props)
+
+            this.state = {
+                count: 0
+            }
+        }
+        incrementCount = () => {
+            this.setState(prevState => {
+                return { count: prevState.count + 1 }
+            })
+        }
+        render() {
+            console.log(this.props.name)
+            return <WrappedComponent count={this.state.count} incrementCount={this.incrementCount} {...this.props} />
+        }
+    }
+    return WithCounter
+}
+
+export default withCounter
+
+
+ClickCounter.js
+import React, { Component } from 'react'
+import withCounter from './withCounter'
+
+class ClickCounter extends Component {
+    render() {
+        const { count, incrementCount } = this.props
+        return (
+            <div>
+                <button
+                    onClick={incrementCount}
+                >{this.props.name} Clicked {count} times</button>
+            </div>
+        )
+    }
+}
+
+export default withCounter(ClickCounter)
+
+
+HoverCounter.js
+import React, { Component } from 'react'
+import withCounter from './withCounter'
+class HoverCounter extends Component {
+    render() {
+        const { count, incrementCount } = this.props
+        return (
+            <div>
+                <h1
+                    onMouseOver={incrementCount}
+                >{this.props.name}  Hover {count} times</h1>
+            </div>
+        )
+    }
+}
+
+export default withCounter(HoverCounter)
+
+
+
+Code Example of passing a parameter to the HOC function
+
+App.js is same
+
+withCounter.js
+
+import React from 'react'
+
+const withCounter = (WrappedComponent, incrementNumber) => {
+    class WithCounter extends React.Component {
+        constructor(props) {
+            super(props)
+
+            this.state = {
+                count: 0
+            }
+        }
+        incrementCount = () => {
+            this.setState(prevState => {
+                return { count: prevState.count + incrementNumber }
+            })
+        }
+        render() {
+            console.log(this.props.name)
+            return <WrappedComponent count={this.state.count} incrementCount={this.incrementCount} {...this.props} />
+        }
+    }
+    return WithCounter
+}
+
+export default withCounter
+
+
+ClickCounter.js
+
+
+import React, { Component } from 'react'
+import withCounter from './withCounter'
+
+class ClickCounter extends Component {
+    render() {
+        const { count, incrementCount } = this.props
+        return (
+            <div>
+                <button
+                    onClick={incrementCount}
+                >{this.props.name} Clicked {count} times</button>
+            </div>
+        )
+    }
+}
+
+export default withCounter(ClickCounter,5)
+
+HoverCounter.js
+
+import React, { Component } from 'react'
+import withCounter from './withCounter'
+class HoverCounter extends Component {
+    render() {
+        const { count, incrementCount } = this.props
+        return (
+            <div>
+                <h1
+                    onMouseOver={incrementCount}
+                >{this.props.name}  Hover {count} times</h1>
+            </div>
+        )
+    }
+}
+
+export default withCounter(HoverCounter, 10)
+
+
+
