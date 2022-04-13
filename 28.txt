@@ -1,0 +1,49 @@
+useEffect:
+
+The Effect Hook lets you perform side effects in functinal components
+
+It is a close replacement for componentDidMount, componentDidUpdate and componentWillUnmount
+Code Example of useEffect in class Component
+
+
+ClassCounterOne.js
+import React, { Component } from 'react'
+
+class ClassCounterOne extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            count: 0
+        }
+    }
+    componentDidMount() {
+        document.title = `Clicked ${this.state.count
+} times`
+    }
+    componentDidUpdate() {
+        document.title = `Clicked ${this.state.count
+} times`
+    }
+    render() {
+        return (
+            <div>
+                <button
+                    onClick={() => this.setState({ count: this.state.count + 1 })}
+                >Click {this.state.count} times</button>
+            </div>
+        )
+    }
+}
+
+The function that is passed on to the useEffect Hook will execute everytime we render the component.
+useEffect Hook is used inside a component which means we can easily use the component state and props inside the useEffect without having to write the extra code.
+
+
+
+export default ClassCounterOne
+
+
+Code Example of Conditionally running the useEffect
+
+

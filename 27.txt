@@ -1,0 +1,278 @@
+What are Hooks?
+
+Hooks are a new Feature adition in React version 16.8 which allow you to use React features without having to write a class.
+
+Ex: State of a component
+
+Hooks don't work inside classes.
+
+Why Hooks?
+
+There is no particular way to reuse the stateful component logic
+HOC and render props patterns do address this problem.
+Makes the code harder to follow.
+There is need to share logic in a better way.
+Create components for complex scenarios such as data fetching and subscribing to events
+Related code is not organised in one place
+Ex: Data fetching- In componentDidMount and componentDidUpdate
+Ex: Event listeners - In componentDidMoount and componentWillUnmount
+Because of stateful logic - Cannot break components into smaller ones.
+
+Summary
+
+They allow to use React features without having to write a class
+Avoid the whole confusion with this keyword
+Allow you to reuse stateful logic
+Organize the logic inside a component into reusable isolated units.
+
+********************
+Hooks are simply the functions so we just call them.
+
+useState Hook:
+useState is a hook that will take the current value of state variable as a parameter and return a state variable and a function to change the value of the state variable.
+A function call is always converted to the arrow function.
+A default value of the state is never rendered on re-renders
+
+Code Example of function state and class state.
+App.js
+
+import React from 'react'
+import ClassCounter from './componentsOne/ClassCounter'
+import HookCounter from './componentsOne/HookCounter'
+
+const App1 = () => {
+  return (
+      <div>
+          <ClassCounter />
+          <HookCounter />
+    </div>
+  )
+}
+
+export default App1
+
+ClassCounter.js
+import React, { Component } from 'react'
+
+class ClassCounter extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            count: 0
+        }
+    }
+    incrementCount = () => {
+        this.setState({
+            count: this.state.count + 1
+        })
+    }
+    render() {
+        return (
+            <div>
+                <button
+                    onClick={this.incrementCount}
+                >Count {this.state.count}</button>
+            </div>
+        )
+    }
+}
+
+export default ClassCounter
+
+
+HookCounter.js
+import React, { useState } from 'react'
+
+const HookCounter = () => {
+    const [count, setCount] = useState(0)
+    return (
+        <div>
+            <button
+                onClick={() => setCount(count + 1)}
+            >Count {count}</button>
+        </div>
+    )
+}
+
+export default HookCounter
+
+
+Rules of Hooks.
+
+"Only Call Hooks at the Top Level"
+Don't call Hooks inside loops, conditions, or nested functions
+
+"Only Call Hooks from React Functions"
+
+Call them from within React functional components and not just any regular Javascript function
+
+
+Code Example of updating the state value based on the previous state using the class and functional component.
+App.js
+
+import React from 'react'
+import ClassCounterTwo from './componentsOne/ClassCounterTwo'
+import HookCounterTwo from './componentsOne/HookCounterTwo'
+
+const App1 = () => {
+    return (
+        <div>
+            <HookCounterTwo />
+            <ClassCounterTwo />
+        </div>
+    )
+}
+
+export default App1
+
+
+HookCounterTwo.js
+import React, { useState } from 'react'
+
+function HookCounterTwo() {
+    const initialCount = 0
+    const [count, setCount] = useState(initialCount)
+    const incrementFive = () => {
+        for (let i = 0; i < 5; i++) {
+            setCount(prevCount => prevCount + 1)
+        }
+    }
+    return (
+        <div>
+            Count : {count}
+            <button
+                onClick={() => setCount(initialCount)}
+            >Reset</button>
+            <button
+                onClick={() => setCount(prevCount => prevCount + 1)}
+            >Increment</button>
+            <button
+                onClick={() => setCount(prevCount => prevCount - 1)}
+            >Decrement</button>
+            <button
+                onClick={() => incrementFive()}
+            >Increment 5</button>
+        </div>
+    )
+}
+
+export default HookCounterTwo
+
+
+
+ClassCounterTwo.js
+import React, { Component } from 'react'
+
+
+
+ClassCounterTwo
+class ClassCounterTwo extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            count: 0
+        }
+    }
+    incrementCount = () => {
+        this.setState(prevState => {
+            return {
+                count: prevState.count + 1
+            }
+        })
+    }
+    render() {
+        return (
+            <div>
+                <button
+                    onClick={this.incrementCount}
+                >count {this.state.count}</button>
+            </div>
+        )
+    }
+}
+
+export default ClassCounterTwo
+
+this.setState will merge the state whears the useState will not merge the state.
+
+Making a Object as a State variable = Code Example.
+
+App.js
+
+import React from 'react'
+import HookCounterThree from './componentsOne/HookCounterThree'
+
+const App1 = () => {
+    return (
+        <div>
+            <HookCounterThree />
+        </div>
+    )
+}
+
+export default App1
+
+
+HookCounterThree.js
+import React, { useState } from 'react'
+
+function HookCounterThree() {
+    const [name, setName] = useState({ firstName: '', lastName: '' })
+    return (
+        <form>
+            <input type="text" value={name.firstName} onChange={e => setName({ ...name, firstName: e.target.value })} />
+            <input type="text" value={name.lastName} onChange={e => setName({ ...name, lastName: e.target.value })} />
+            <h2>Your First Name is - {name.firstName}</h2>
+            <h2>Your Last Name is - {name.lastName}</h2>
+            <h2>{JSON.stringify(name)}</h2>
+        </form>
+    )
+}
+
+export default HookCounterThree
+
+
+Making a Array as a State variable = Code Example.
+
+
+HookCounterFour.js
+import React, { useState } from 'react'
+
+function HookCounterFour() {
+    const [items, setItems] = useState([])
+    const addItem = () => {
+        setItems([...items, {
+            id: items.length,
+            value: Math.floor(Math.random() * 10) + 1
+        }])
+    }
+    return (
+        <div>
+            <button
+                onClick={() => addItem()}
+            >Add Items</button>
+            <ul>
+                {
+                    items.map(item => <li key={item.id}>{item.value}</li>)
+                }
+            </ul>
+        </div>
+    )
+}
+
+
+Summary - useState
+The useState hook lets you add state to functional components
+In classes, the state is always an object.
+With the useState hook, the state dosen't have to be an object.
+The useState hook returns an array with 2 elements
+The first element is the current value of the state, and the second element is a state setter function.
+New state value depends on the previous state value? You can pass a function to the seeter functions.
+When dealing with objects or arrays, always make sure to spread your state variable and then call the setter function.
+
+
+export default HookCounterFour
+
+
